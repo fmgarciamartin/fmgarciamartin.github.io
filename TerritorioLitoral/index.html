@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet.wms.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/MurciaSinCosta3kmv01_4.js"></script>
+        <script src="data/CostaMurciaEquidisLneav01entities_5.js"></script>
+        <script src="data/Murciav10_6.js"></script>
+        <script src="data/UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7.js"></script>
+        <script src="data/UrbanizacionesTT04Densidadesv10bTRAMA_8.js"></script>
+        <script src="data/UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9.js"></script>
+        <script src="data/UrbanizacionesTT04Densidadesv10bIMPLANTACIN_10.js"></script>
+        <script src="data/UrbanizacionesTT04Densidadesv10bPERIODOS_11.js"></script>
+        <script src="data/ZONASv02_12.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        var layer_1956USAF_0 = L.WMS.layer("https://ortofotos-gis.carm.es/geoserver/ORTOFOTOS/wms?", "1956-USAF", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+            attribution: '',
+        });
+        var layer_1981_CARM_1 = L.WMS.layer("https://ortofotos-gis.carm.es/geoserver/ORTOFOTOS/wms?", "1981_CARM", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+            attribution: '',
+        });
+        var layer_19972003_CARM_2 = L.WMS.layer("https://ortofotos-gis.carm.es/geoserver/ORTOFOTOS/wms?", "1997-2003_CARM", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            identify: false,
+            attribution: '',
+        });
+        var layer_PNOAMA_3 = L.WMS.layer("http://www.ign.es/wms-inspire/pnoa-ma", "OI.OrthoimageCoverage", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 0,
+            identify: false,
+            attribution: '',
+        });
+        map.addLayer(layer_PNOAMA_3);
+        function pop_MurciaSinCosta3kmv01_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Layer'] !== null ? Autolinker.link(String(feature.properties['Layer'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SubClasses'] !== null ? Autolinker.link(String(feature.properties['SubClasses'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ExtendedEn'] !== null ? Autolinker.link(String(feature.properties['ExtendedEn'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Linetype'] !== null ? Autolinker.link(String(feature.properties['Linetype'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['EntityHand'] !== null ? Autolinker.link(String(feature.properties['EntityHand'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Text'] !== null ? Autolinker.link(String(feature.properties['Text'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_MurciaSinCosta3kmv01_4_0() {
+            return {
+                pane: 'pane_MurciaSinCosta3kmv01_4',
+                opacity: 1,
+                color: 'rgba(41,41,41,1.0)',
+                dashArray: '1,5',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,0.0)',
+            }
+        }
+        map.createPane('pane_MurciaSinCosta3kmv01_4');
+        map.getPane('pane_MurciaSinCosta3kmv01_4').style.zIndex = 404;
+        map.getPane('pane_MurciaSinCosta3kmv01_4').style['mix-blend-mode'] = 'normal';
+        var layer_MurciaSinCosta3kmv01_4 = new L.geoJson(json_MurciaSinCosta3kmv01_4, {
+            attribution: '',
+            pane: 'pane_MurciaSinCosta3kmv01_4',
+            onEachFeature: pop_MurciaSinCosta3kmv01_4,
+            style: style_MurciaSinCosta3kmv01_4_0,
+        });
+        bounds_group.addLayer(layer_MurciaSinCosta3kmv01_4);
+        map.addLayer(layer_MurciaSinCosta3kmv01_4);
+        function pop_CostaMurciaEquidisLneav01entities_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Layer'] !== null ? Autolinker.link(String(feature.properties['Layer'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SubClasses'] !== null ? Autolinker.link(String(feature.properties['SubClasses'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Linetype'] !== null ? Autolinker.link(String(feature.properties['Linetype'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['EntityHandle'] !== null ? Autolinker.link(String(feature.properties['EntityHandle'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Text'] !== null ? Autolinker.link(String(feature.properties['Text'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CostaMurciaEquidisLneav01entities_5_0() {
+            return {
+                pane: 'pane_CostaMurciaEquidisLneav01entities_5',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '1,5',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_CostaMurciaEquidisLneav01entities_5');
+        map.getPane('pane_CostaMurciaEquidisLneav01entities_5').style.zIndex = 405;
+        map.getPane('pane_CostaMurciaEquidisLneav01entities_5').style['mix-blend-mode'] = 'normal';
+        var layer_CostaMurciaEquidisLneav01entities_5 = new L.geoJson(json_CostaMurciaEquidisLneav01entities_5, {
+            attribution: '',
+            pane: 'pane_CostaMurciaEquidisLneav01entities_5',
+            onEachFeature: pop_CostaMurciaEquidisLneav01entities_5,
+            style: style_CostaMurciaEquidisLneav01entities_5_0,
+        });
+        bounds_group.addLayer(layer_CostaMurciaEquidisLneav01entities_5);
+        map.addLayer(layer_CostaMurciaEquidisLneav01entities_5);
+        function pop_Murciav10_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FID'] !== null ? Autolinker.link(String(feature.properties['FID'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Murciav10_6_0() {
+            return {
+                pane: 'pane_Murciav10_6',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,0.0)',
+            }
+        }
+        map.createPane('pane_Murciav10_6');
+        map.getPane('pane_Murciav10_6').style.zIndex = 406;
+        map.getPane('pane_Murciav10_6').style['mix-blend-mode'] = 'normal';
+        var layer_Murciav10_6 = new L.geoJson(json_Murciav10_6, {
+            attribution: '',
+            pane: 'pane_Murciav10_6',
+            onEachFeature: pop_Murciav10_6,
+            style: style_Murciav10_6_0,
+        });
+        bounds_group.addLayer(layer_Murciav10_6);
+        map.addLayer(layer_Murciav10_6);
+        function pop_UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID'] !== null ? Autolinker.link(String(feature.properties['ID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ZONA'] !== null ? Autolinker.link(String(feature.properties['ZONA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CODURBA'] !== null ? Autolinker.link(String(feature.properties['CODURBA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MATRICULAD'] !== null ? Autolinker.link(String(feature.properties['MATRICULAD'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PERIODO'] !== null ? Autolinker.link(String(feature.properties['PERIODO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NODO'] !== null ? Autolinker.link(String(feature.properties['NODO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LÍMITE'] !== null ? Autolinker.link(String(feature.properties['LÍMITE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['IMPLANTACI'] !== null ? Autolinker.link(String(feature.properties['IMPLANTACI'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AGRUPACIÓN'] !== null ? Autolinker.link(String(feature.properties['AGRUPACIÓN'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Urbaniza'] !== null ? Autolinker.link(String(feature.properties['Urbaniza'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NUM_Celdas'] !== null ? Autolinker.link(String(feature.properties['NUM_Celdas'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SUP_sum'] !== null ? Autolinker.link(String(feature.properties['SUP_sum'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['EDIF_sum'] !== null ? Autolinker.link(String(feature.properties['EDIF_sum'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FSI'] !== null ? Autolinker.link(String(feature.properties['FSI'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['GSI'] !== null ? Autolinker.link(String(feature.properties['GSI'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['L'] !== null ? Autolinker.link(String(feature.properties['L'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OSR'] !== null ? Autolinker.link(String(feature.properties['OSR'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7_0(feature) {
+            switch(String(feature.properties['AGRUPACIÓN'])) {
+                case 'Plurifamiliar':
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(237,223,16,0.6)',
+            }
+                    break;
+                case 'Unifamiliar aislada':
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(111,118,223,0.6)',
+            }
+                    break;
+                case 'Unifamiliar en hilera':
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(201,85,151,0.6)',
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(80,230,145,0.6)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7');
+        map.getPane('pane_UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7').style.zIndex = 407;
+        map.getPane('pane_UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7').style['mix-blend-mode'] = 'normal';
+        var layer_UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7 = new L.geoJson(json_UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7, {
+            attribution: '',
+            pane: 'pane_UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7',
+            onEachFeature: pop_UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7,
+            style: style_UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7_0,
+        });
+        bounds_group.addLayer(layer_UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7);
+        function pop_UrbanizacionesTT04Densidadesv10bTRAMA_8(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID'] !== null ? Autolinker.link(String(feature.properties['ID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ZONA'] !== null ? Autolinker.link(String(feature.properties['ZONA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CODURBA'] !== null ? Autolinker.link(String(feature.properties['CODURBA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MATRICULAD'] !== null ? Autolinker.link(String(feature.properties['MATRICULAD'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PERIODO'] !== null ? Autolinker.link(String(feature.properties['PERIODO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NODO'] !== null ? Autolinker.link(String(feature.properties['NODO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LÍMITE'] !== null ? Autolinker.link(String(feature.properties['LÍMITE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['IMPLANTACI'] !== null ? Autolinker.link(String(feature.properties['IMPLANTACI'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AGRUPACIÓN'] !== null ? Autolinker.link(String(feature.properties['AGRUPACIÓN'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Urbaniza'] !== null ? Autolinker.link(String(feature.properties['Urbaniza'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NUM_Celdas'] !== null ? Autolinker.link(String(feature.properties['NUM_Celdas'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SUP_sum'] !== null ? Autolinker.link(String(feature.properties['SUP_sum'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['EDIF_sum'] !== null ? Autolinker.link(String(feature.properties['EDIF_sum'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FSI'] !== null ? Autolinker.link(String(feature.properties['FSI'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['GSI'] !== null ? Autolinker.link(String(feature.properties['GSI'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['L'] !== null ? Autolinker.link(String(feature.properties['L'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OSR'] !== null ? Autolinker.link(String(feature.properties['OSR'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_UrbanizacionesTT04Densidadesv10bTRAMA_8_0(feature) {
+            switch(String(feature.properties['IMPLANTACI'])) {
+                case 'Lineal':
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bTRAMA_8',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(126,224,115,0.6)',
+            }
+                    break;
+                case 'Malla':
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bTRAMA_8',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(39,212,227,0.6)',
+            }
+                    break;
+                case 'No planificado':
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bTRAMA_8',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(232,198,116,0.6)',
+            }
+                    break;
+                case 'Orgánica':
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bTRAMA_8',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(228,111,172,0.6)',
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bTRAMA_8',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(70,14,211,0.6)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_UrbanizacionesTT04Densidadesv10bTRAMA_8');
+        map.getPane('pane_UrbanizacionesTT04Densidadesv10bTRAMA_8').style.zIndex = 408;
+        map.getPane('pane_UrbanizacionesTT04Densidadesv10bTRAMA_8').style['mix-blend-mode'] = 'normal';
+        var layer_UrbanizacionesTT04Densidadesv10bTRAMA_8 = new L.geoJson(json_UrbanizacionesTT04Densidadesv10bTRAMA_8, {
+            attribution: '',
+            pane: 'pane_UrbanizacionesTT04Densidadesv10bTRAMA_8',
+            onEachFeature: pop_UrbanizacionesTT04Densidadesv10bTRAMA_8,
+            style: style_UrbanizacionesTT04Densidadesv10bTRAMA_8_0,
+        });
+        bounds_group.addLayer(layer_UrbanizacionesTT04Densidadesv10bTRAMA_8);
+        function pop_UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID'] !== null ? Autolinker.link(String(feature.properties['ID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ZONA'] !== null ? Autolinker.link(String(feature.properties['ZONA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CODURBA'] !== null ? Autolinker.link(String(feature.properties['CODURBA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MATRICULAD'] !== null ? Autolinker.link(String(feature.properties['MATRICULAD'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PERIODO'] !== null ? Autolinker.link(String(feature.properties['PERIODO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NODO'] !== null ? Autolinker.link(String(feature.properties['NODO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['LÍMITE'] !== null ? Autolinker.link(String(feature.properties['LÍMITE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['IMPLANTACI'] !== null ? Autolinker.link(String(feature.properties['IMPLANTACI'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AGRUPACIÓN'] !== null ? Autolinker.link(String(feature.properties['AGRUPACIÓN'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Urbaniza'] !== null ? Autolinker.link(String(feature.properties['Urbaniza'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NUM_Celdas'] !== null ? Autolinker.link(String(feature.properties['NUM_Celdas'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SUP_sum'] !== null ? Autolinker.link(String(feature.properties['SUP_sum'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['EDIF_sum'] !== null ? Autolinker.link(String(feature.properties['EDIF_sum'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FSI'] !== null ? Autolinker.link(String(feature.properties['FSI'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['GSI'] !== null ? Autolinker.link(String(feature.properties['GSI'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['L'] !== null ? Autolinker.link(String(feature.properties['L'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OSR'] !== null ? Autolinker.link(String(feature.properties['OSR'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9_0(feature) {
+            switch(String(feature.properties['LÍMITE'])) {
+                case 'Aislado':
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(221,117,218,0.6)',
+            }
+                    break;
+                case 'Mar':
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(75,221,165,0.6)',
+            }
+                    break;
+                case 'Nodo':
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(171,216,111,0.6)',
+            }
+                    break;
+                case 'Núcleo urbano':
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(95,116,210,0.6)',
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(210,120,92,0.6)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9');
+        map.getPane('pane_UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9').style.zIndex = 409;
+        map.getPane('pane_UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9').style['mix-blend-mode'] = 'normal';
+        var layer_UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9 = new L.geoJson(json_UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9, {
+            attribution: '',
+            pane: 'pane_UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9',
+            onEachFeature: pop_UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9,
+            style: style_UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9_0,
+        });
+        bounds_group.addLayer(layer_UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9);
+        function pop_UrbanizacionesTT04Densidadesv10bIMPLANTACIN_10(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ID</th>\
+                        <td>' + (feature.properties['ID'] !== null ? Autolinker.link(String(feature.properties['ID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ZONA</th>\
+                        <td>' + (feature.properties['ZONA'] !== null ? Autolinker.link(String(feature.properties['ZONA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CODURBA</th>\
+                        <td>' + (feature.properties['CODURBA'] !== null ? Autolinker.link(String(feature.properties['CODURBA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MATRICULAD</th>\
+                        <td>' + (feature.properties['MATRICULAD'] !== null ? Autolinker.link(String(feature.properties['MATRICULAD'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PERIODO</th>\
+                        <td>' + (feature.properties['PERIODO'] !== null ? Autolinker.link(String(feature.properties['PERIODO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NODO</th>\
+                        <td>' + (feature.properties['NODO'] !== null ? Autolinker.link(String(feature.properties['NODO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LÍMITE</th>\
+                        <td>' + (feature.properties['LÍMITE'] !== null ? Autolinker.link(String(feature.properties['LÍMITE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">IMPLANTACI</th>\
+                        <td>' + (feature.properties['IMPLANTACI'] !== null ? Autolinker.link(String(feature.properties['IMPLANTACI'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">AGRUPACIÓN</th>\
+                        <td>' + (feature.properties['AGRUPACIÓN'] !== null ? Autolinker.link(String(feature.properties['AGRUPACIÓN'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Urbaniza</th>\
+                        <td>' + (feature.properties['Urbaniza'] !== null ? Autolinker.link(String(feature.properties['Urbaniza'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NUM_Celdas</th>\
+                        <td>' + (feature.properties['NUM_Celdas'] !== null ? Autolinker.link(String(feature.properties['NUM_Celdas'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SUP_sum</th>\
+                        <td>' + (feature.properties['SUP_sum'] !== null ? Autolinker.link(String(feature.properties['SUP_sum'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">EDIF_sum</th>\
+                        <td>' + (feature.properties['EDIF_sum'] !== null ? Autolinker.link(String(feature.properties['EDIF_sum'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FSI</th>\
+                        <td>' + (feature.properties['FSI'] !== null ? Autolinker.link(String(feature.properties['FSI'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">GSI</th>\
+                        <td>' + (feature.properties['GSI'] !== null ? Autolinker.link(String(feature.properties['GSI'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">L</th>\
+                        <td>' + (feature.properties['L'] !== null ? Autolinker.link(String(feature.properties['L'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">OSR</th>\
+                        <td>' + (feature.properties['OSR'] !== null ? Autolinker.link(String(feature.properties['OSR'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_UrbanizacionesTT04Densidadesv10bIMPLANTACIN_10_0(feature) {
+            switch(String(feature.properties['NODO'])) {
+                case 'Autónomo':
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bIMPLANTACIN_10',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(115,226,238,0.6)',
+            }
+                    break;
+                case 'Parásito':
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bIMPLANTACIN_10',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,18,206,0.6)',
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bIMPLANTACIN_10',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(206,221,73,0.6)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_UrbanizacionesTT04Densidadesv10bIMPLANTACIN_10');
+        map.getPane('pane_UrbanizacionesTT04Densidadesv10bIMPLANTACIN_10').style.zIndex = 410;
+        map.getPane('pane_UrbanizacionesTT04Densidadesv10bIMPLANTACIN_10').style['mix-blend-mode'] = 'normal';
+        var layer_UrbanizacionesTT04Densidadesv10bIMPLANTACIN_10 = new L.geoJson(json_UrbanizacionesTT04Densidadesv10bIMPLANTACIN_10, {
+            attribution: '',
+            pane: 'pane_UrbanizacionesTT04Densidadesv10bIMPLANTACIN_10',
+            onEachFeature: pop_UrbanizacionesTT04Densidadesv10bIMPLANTACIN_10,
+            style: style_UrbanizacionesTT04Densidadesv10bIMPLANTACIN_10_0,
+        });
+        bounds_group.addLayer(layer_UrbanizacionesTT04Densidadesv10bIMPLANTACIN_10);
+        function pop_UrbanizacionesTT04Densidadesv10bPERIODOS_11(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ID</th>\
+                        <td>' + (feature.properties['ID'] !== null ? Autolinker.link(String(feature.properties['ID'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ZONA</th>\
+                        <td>' + (feature.properties['ZONA'] !== null ? Autolinker.link(String(feature.properties['ZONA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">CODURBA</th>\
+                        <td>' + (feature.properties['CODURBA'] !== null ? Autolinker.link(String(feature.properties['CODURBA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MATRICULAD</th>\
+                        <td>' + (feature.properties['MATRICULAD'] !== null ? Autolinker.link(String(feature.properties['MATRICULAD'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">PERIODO</th>\
+                        <td>' + (feature.properties['PERIODO'] !== null ? Autolinker.link(String(feature.properties['PERIODO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NODO</th>\
+                        <td>' + (feature.properties['NODO'] !== null ? Autolinker.link(String(feature.properties['NODO'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">LÍMITE</th>\
+                        <td>' + (feature.properties['LÍMITE'] !== null ? Autolinker.link(String(feature.properties['LÍMITE'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">IMPLANTACI</th>\
+                        <td>' + (feature.properties['IMPLANTACI'] !== null ? Autolinker.link(String(feature.properties['IMPLANTACI'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">AGRUPACIÓN</th>\
+                        <td>' + (feature.properties['AGRUPACIÓN'] !== null ? Autolinker.link(String(feature.properties['AGRUPACIÓN'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Urbaniza</th>\
+                        <td>' + (feature.properties['Urbaniza'] !== null ? Autolinker.link(String(feature.properties['Urbaniza'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">NUM_Celdas</th>\
+                        <td>' + (feature.properties['NUM_Celdas'] !== null ? Autolinker.link(String(feature.properties['NUM_Celdas'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SUP_sum</th>\
+                        <td>' + (feature.properties['SUP_sum'] !== null ? Autolinker.link(String(feature.properties['SUP_sum'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">EDIF_sum</th>\
+                        <td>' + (feature.properties['EDIF_sum'] !== null ? Autolinker.link(String(feature.properties['EDIF_sum'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">FSI</th>\
+                        <td>' + (feature.properties['FSI'] !== null ? Autolinker.link(String(feature.properties['FSI'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">GSI</th>\
+                        <td>' + (feature.properties['GSI'] !== null ? Autolinker.link(String(feature.properties['GSI'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">L</th>\
+                        <td>' + (feature.properties['L'] !== null ? Autolinker.link(String(feature.properties['L'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">OSR</th>\
+                        <td>' + (feature.properties['OSR'] !== null ? Autolinker.link(String(feature.properties['OSR'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_UrbanizacionesTT04Densidadesv10bPERIODOS_11_0(feature) {
+            switch(String(feature.properties['PERIODO'])) {
+                case '1960-1980':
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bPERIODOS_11',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(139,236,74,0.6)',
+            }
+                    break;
+                case '1980-2000':
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bPERIODOS_11',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(204,123,114,0.6)',
+            }
+                    break;
+                case '2000-2018':
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bPERIODOS_11',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(126,214,222,0.6)',
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_UrbanizacionesTT04Densidadesv10bPERIODOS_11',
+                opacity: 1,
+                color: 'rgba(35,35,35,0.6)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(194,128,237,0.6)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_UrbanizacionesTT04Densidadesv10bPERIODOS_11');
+        map.getPane('pane_UrbanizacionesTT04Densidadesv10bPERIODOS_11').style.zIndex = 411;
+        map.getPane('pane_UrbanizacionesTT04Densidadesv10bPERIODOS_11').style['mix-blend-mode'] = 'normal';
+        var layer_UrbanizacionesTT04Densidadesv10bPERIODOS_11 = new L.geoJson(json_UrbanizacionesTT04Densidadesv10bPERIODOS_11, {
+            attribution: '',
+            pane: 'pane_UrbanizacionesTT04Densidadesv10bPERIODOS_11',
+            onEachFeature: pop_UrbanizacionesTT04Densidadesv10bPERIODOS_11,
+            style: style_UrbanizacionesTT04Densidadesv10bPERIODOS_11_0,
+        });
+        bounds_group.addLayer(layer_UrbanizacionesTT04Densidadesv10bPERIODOS_11);
+        map.addLayer(layer_UrbanizacionesTT04Densidadesv10bPERIODOS_11);
+        function pop_ZONASv02_12(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MINX'] !== null ? Autolinker.link(String(feature.properties['MINX'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MINY'] !== null ? Autolinker.link(String(feature.properties['MINY'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MAXX'] !== null ? Autolinker.link(String(feature.properties['MAXX'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MAXY'] !== null ? Autolinker.link(String(feature.properties['MAXY'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CNTX'] !== null ? Autolinker.link(String(feature.properties['CNTX'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CNTY'] !== null ? Autolinker.link(String(feature.properties['CNTY'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AREA'] !== null ? Autolinker.link(String(feature.properties['AREA'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PERIM'] !== null ? Autolinker.link(String(feature.properties['PERIM'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['HEIGHT'] !== null ? Autolinker.link(String(feature.properties['HEIGHT'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['WIDTH'] !== null ? Autolinker.link(String(feature.properties['WIDTH'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ZONASv02_12_0() {
+            return {
+                pane: 'pane_ZONASv02_12',
+                opacity: 1,
+                color: 'rgba(36,173,228,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 7.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(78,91,206,0.0)',
+            }
+        }
+        map.createPane('pane_ZONASv02_12');
+        map.getPane('pane_ZONASv02_12').style.zIndex = 412;
+        map.getPane('pane_ZONASv02_12').style['mix-blend-mode'] = 'normal';
+        var layer_ZONASv02_12 = new L.geoJson(json_ZONASv02_12, {
+            attribution: '',
+            pane: 'pane_ZONASv02_12',
+            onEachFeature: pop_ZONASv02_12,
+            style: style_ZONASv02_12_0,
+        });
+        bounds_group.addLayer(layer_ZONASv02_12);
+        map.addLayer(layer_ZONASv02_12);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/ZONASv02_12.png" /> ZONAS-v02': layer_ZONASv02_12,'Urbanizaciones TT-04 Densidades-v10b-PERIODOS<br /><table><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bPERIODOS_11_196019800.png" /></td><td>1960-1980</td></tr><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bPERIODOS_11_198020001.png" /></td><td>1980-2000</td></tr><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bPERIODOS_11_200020182.png" /></td><td>2000-2018</td></tr><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bPERIODOS_11_3.png" /></td><td></td></tr></table>': layer_UrbanizacionesTT04Densidadesv10bPERIODOS_11,'Urbanizaciones TT-04 Densidades-v10b-IMPLANTACIÓN<br /><table><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bIMPLANTACIN_10_Autónomo0.png" /></td><td>Autónomo</td></tr><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bIMPLANTACIN_10_Parásito1.png" /></td><td>Parásito</td></tr><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bIMPLANTACIN_10_2.png" /></td><td></td></tr></table>': layer_UrbanizacionesTT04Densidadesv10bIMPLANTACIN_10,'Urbanizaciones TT-04 Densidades-v10b-ENLACE TERRITORIAL<br /><table><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9_Aislado0.png" /></td><td>Aislado</td></tr><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9_Mar1.png" /></td><td>Mar</td></tr><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9_Nodo2.png" /></td><td>Nodo</td></tr><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9_Núcleourbano3.png" /></td><td>Núcleo urbano</td></tr><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9_4.png" /></td><td></td></tr></table>': layer_UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9,'Urbanizaciones TT-04 Densidades-v10b-TRAMA<br /><table><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bTRAMA_8_Lineal0.png" /></td><td>Lineal</td></tr><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bTRAMA_8_Malla1.png" /></td><td>Malla</td></tr><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bTRAMA_8_Noplanificado2.png" /></td><td>No planificado</td></tr><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bTRAMA_8_Orgánica3.png" /></td><td>Orgánica</td></tr><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bTRAMA_8_4.png" /></td><td></td></tr></table>': layer_UrbanizacionesTT04Densidadesv10bTRAMA_8,'Urbanizaciones TT-04 Densidades-v10b-TIPOLOGÍA EDIFICACIÓN<br /><table><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7_Plurifamiliar0.png" /></td><td>Plurifamiliar</td></tr><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7_Unifamiliaraislada1.png" /></td><td>Unifamiliar aislada</td></tr><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7_Unifamiliarenhilera2.png" /></td><td>Unifamiliar en hilera</td></tr><tr><td style="text-align: center;"><img src="legend/UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7_3.png" /></td><td></td></tr></table>': layer_UrbanizacionesTT04Densidadesv10bTIPOLOGAEDIFICACIN_7,'<img src="legend/Murciav10_6.png" /> Murcia-v10': layer_Murciav10_6,'<img src="legend/CostaMurciaEquidisLneav01entities_5.png" /> Costa Murcia-Equidis Línea-v01 entities': layer_CostaMurciaEquidisLneav01entities_5,'<img src="legend/MurciaSinCosta3kmv01_4.png" /> Murcia-Sin Costa 3km-v01': layer_MurciaSinCosta3kmv01_4,"PNOA-MA": layer_PNOAMA_3,"1997-2003_CARM": layer_19972003_CARM_2,"1981_CARM": layer_1981_CARM_1,"1956-USAF": layer_1956USAF_0,}).addTo(map);
+        setBounds();
+        map.addControl(new L.Control.Search({
+            layer: layer_UrbanizacionesTT04Densidadesv10bENLACETERRITORIAL_9,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'CODURBA'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        </script>
+    </body>
+</html>
