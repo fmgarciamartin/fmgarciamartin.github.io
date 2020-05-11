@@ -88,7 +88,7 @@ function fnc_ln(values, context) {
 };
 
 function fnc_log10(values, context) {
-    return Math.LN10(values[0]);
+    return Math.log10(values[0]);
 };
 
 function fnc_log(values, context) {
@@ -754,3 +754,17 @@ function fnc__specialcol_(values, context) {
 function fnc_project_color(values, context) {
     return false;
 };
+
+
+
+function exp_label_UrbanizacionesTTx1VisorWebv01_3_eval_expression(context) {
+    // concat(Urbaniza, '+', 'FSI:', FSI, '+', 'GSI:', GSI, '+', 'L:', L)
+
+    var feature = context.feature;
+    
+    if (feature.properties) {
+        return fnc_concat([feature.properties['Urbaniza'] ,'+','FSI:',feature.properties['FSI'] ,'+','GSI:',feature.properties['GSI'] ,'+','L:',feature.properties['L'] ], context);
+    } else {
+        return fnc_concat([feature['Urbaniza'] ,'+','FSI:',feature['FSI'] ,'+','GSI:',feature['GSI'] ,'+','L:',feature['L'] ], context);
+    }
+}
